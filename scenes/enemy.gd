@@ -71,7 +71,6 @@ func checkDistance():
 
 func _on_hitbox_enemy_area_entered(area):
 	if area.name == "Hitbox":
-		print(area.name)
 		var knockDir = -velocity.normalized() * knockPower
 		velocity = knockDir
 		move_and_slide()
@@ -85,8 +84,6 @@ func _on_hurtbox_area_entered(area):
 		move_and_slide()
 		alertTimer.start(0.8)
 		stats.take_damage(player.stats.att)
-		print_debug("Enemy Damaged: "+ str(player.stats.att))
-		print_debug("HP Left: "+ str(stats.hp))
 		if stats.hp <= 0:
 			queue_free()
 	
