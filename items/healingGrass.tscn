@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://c8jmo1p64ty8c"]
+
+[ext_resource type="PackedScene" uid="uid://dgfk8i88ck8ii" path="res://scenes/collectibles.tscn" id="1_3bih7"]
+[ext_resource type="Script" path="res://items/healingGrass.gd" id="2_gnoxo"]
+[ext_resource type="Script" path="res://items/healingGrassItem.gd" id="2_lncjo"]
+[ext_resource type="Texture2D" uid="uid://dhc1x4ghwo80d" path="res://asset/bhUpd0H.png" id="3_214jl"]
+
+[sub_resource type="Resource" id="Resource_bkkxd"]
+script = ExtResource("2_lncjo")
+name = "healingGrass"
+texture = ExtResource("3_214jl")
+is_consumeable = true
+effects = "heal"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypid1"]
+resource_local_to_scene = true
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_27kkh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_w4cf6"]
+resource_name = "spin"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8l7ap"]
+_data = {
+"RESET": SubResource("Animation_27kkh"),
+"spin": SubResource("Animation_w4cf6")
+}
+
+[node name="healingGrass" instance=ExtResource("1_3bih7")]
+z_index = 0
+script = ExtResource("2_gnoxo")
+itemRes = SubResource("Resource_bkkxd")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_ypid1")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_214jl")
+hframes = 1
+vframes = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_8l7ap")
+}

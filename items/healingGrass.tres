@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItems" load_steps=3 format=3 uid="uid://dxag7vu25dk2o"]
+
+[ext_resource type="Script" path="res://Scripts/InventoryItems.gd" id="1_mspe3"]
+[ext_resource type="Texture2D" uid="uid://dhc1x4ghwo80d" path="res://asset/bhUpd0H.png" id="2_r4xmp"]
+
+[resource]
+resource_name = "pubicHair"
+script = ExtResource("1_mspe3")
+name = "pubicHairw"
+texture = ExtResource("2_r4xmp")
