@@ -555,6 +555,7 @@ size = Vector2(30, 21)
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
+scale = Vector2(1.5, 1.5)
 up_direction = Vector2(0, 1)
 script = ExtResource("1_2n6jo")
 inventory = ExtResource("2_dl1x4")

@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal HPChanged
 
-@export var speed:int=40
+@export var speed:int=120
 @export var maxHP:int = 5
 @export var knockPower:int =1000
 @export var inventory: Inventory
@@ -28,6 +28,10 @@ func _ready():
 
 func handleInput():
 	var moveDir = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up")
+	if Input.is_action_pressed("run"):
+		speed = 230
+	else:
+		speed = 120
 	if is_stunned:
 		moveDir = Vector2.ZERO
 	moveDir.y = -moveDir.y
