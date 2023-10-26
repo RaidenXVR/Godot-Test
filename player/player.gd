@@ -17,7 +17,7 @@ var is_stunned : bool = false
 var currentHealth : int = maxHP
 var is_damaged: bool = false
 var is_attacking: bool = false
-
+var moveDir
 
 func _ready():
 	stats.att = 5
@@ -27,15 +27,37 @@ func _ready():
 
 
 func handleInput():
-	var moveDir = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up")
+	#get input from player
+	moveDir = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up")
+	
+	#Looking direction
+	if (moveDir.x<0 ):
+		animation.play("walkLeft")
+		animation.stop()
+	elif(moveDir.x>0 and velocity.length() == 0):
+		animation.play("walkRight")
+		animation.stop()
+	elif (moveDir.y>0 and velocity.length() == 0):
+		animation.play("walkDown")
+		animation.stop()
+	elif moveDir.y<0 and velocity.length() == 0:
+		animation.play("walkUp")
+		animation.stop()
+		
+	#Switch to run
 	if Input.is_action_pressed("run"):
 		speed = 230
 	else:
 		speed = 120
+	
+	#for if the player is stunned
 	if is_stunned:
 		moveDir = Vector2.ZERO
+	
+	#moving
 	moveDir.y = -moveDir.y
 	velocity = moveDir *speed
+	#attack logic
 	if Input.is_action_just_pressed("attack"):
 		animation.play("attack"+lastAnimDir)
 		is_attacking = true
@@ -46,15 +68,26 @@ func handleInput():
 
 func updateAnimation():
 	if is_attacking: return
+	
+	
 	if velocity.length() == 0:
-		animation.play("walk"+lastAnimDir)
-		animation.stop()
+		if moveDir == Vector2.ZERO:
+			animation.play("walk"+lastAnimDir)
+			animation.stop()
+		else:
+			var dir = "Down"
+			if moveDir.x < 0: dir = "Left"
+			elif moveDir.x > 0 : dir = "Right"
+			elif moveDir.y<0: dir = "Up"
+			lastAnimDir = dir
+			animation.play("walk"+dir)
+			animation.stop()
+
 	else:
 		var dir = "Down"
 		if velocity.x < 0: dir = "Left"
 		elif velocity.x > 0 : dir = "Right"
 		elif velocity.y<0: dir = "Up"
-		
 		lastAnimDir = dir
 		animation.play("walk"+dir)
 		
@@ -68,6 +101,8 @@ func _physics_process(delta):
 
 
 func _on_hitbox_area_entered(area):
+	print("area")
+	print(area.name)
 	if area.name == 'HitboxEnemy':
 		knockback(area.get_parent().velocity)
 		if is_damaged: return
@@ -80,6 +115,9 @@ func _on_hitbox_area_entered(area):
 		is_damaged = true
 	if area.has_method("collect"):
 		area.collect(inventory)
+		
+	if area.has_method("talk") and Input.is_action_pressed("interact"):
+		area.talk()
 
 func unstun():
 	timer.stop()
