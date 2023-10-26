@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://kaqxyy4aid2g"]
+[gd_scene load_steps=10 format=3 uid="uid://kaqxyy4aid2g"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_caqp4"]
 [ext_resource type="PackedScene" uid="uid://bpx2dd7k4devf" path="res://map/market.tscn" id="2_kgdd5"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b44n28sekh03e" path="res://scenes/hearth_container.tscn" id="6_xxg67"]
 [ext_resource type="PackedScene" uid="uid://44lbh4mcehjm" path="res://scenes/inventory.tscn" id="7_83lws"]
 [ext_resource type="PackedScene" uid="uid://fy7c35byi10c" path="res://npc/npc_1.tscn" id="8_cocl8"]
+[ext_resource type="PackedScene" uid="uid://chfkat4ylx4bw" path="res://npc/npc_2.tscn" id="9_qrwb4"]
 
 [node name="world2" type="Node2D"]
 y_sort_enabled = true
@@ -19,7 +20,7 @@ layer_1/tile_data = PackedInt32Array(524296, 524289, 4, 524297, 589825, 4, 52429
 
 [node name="Player" parent="." instance=ExtResource("3_s24k2")]
 z_index = 0
-position = Vector2(1329, 730)
+position = Vector2(1031, 734)
 up_direction = Vector2(0, -1)
 
 [node name="Cam" type="Camera2D" parent="Player" node_paths=PackedStringArray("tilemap")]
@@ -62,4 +63,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="NPC1" parent="." instance=ExtResource("8_cocl8")]
-position = Vector2(892, 724)
+position = Vector2(1079, 551)
+
+[node name="NPC2" parent="." instance=ExtResource("9_qrwb4")]
+position = Vector2(887, 862)
